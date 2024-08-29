@@ -23,7 +23,8 @@ jobs:
     
     - name: Compile
       run: |
-        make
+        cores=$(lscpu | awk '/^CPU\(s\)/ { print $2 }')
+        make --jobs $(( cores * 2 ))
 
     - name: Upload
       uses: actions/upload-artifact@v4
